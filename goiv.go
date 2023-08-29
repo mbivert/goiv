@@ -226,10 +226,10 @@ func drawBG(surface *sdl.Surface, ww, wh int32) {
  *
  * 0) We have a drawing surface (~window)
  * (0,0) ------------------------------------- (ww,0)
- *   |
- *   |
- *   |
- *   |
+ *   |                                            |
+ *   |                                            |
+ *   |                                            |
+ *   |                                            |
  * (0,wh) ------------------------------------ (ww,wh)
  *
  * "x" coordinates range on the width.
