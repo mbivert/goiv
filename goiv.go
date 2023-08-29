@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/img"
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 var argv0 string
@@ -24,15 +24,15 @@ var random = flag.Bool("r", false, "randomize input files")
 var doHelp = flag.Bool("h", false, "show help")
 
 var window *sdl.Window
-var image  *sdl.Surface
+var image *sdl.Surface
 
 var defWinW = int32(800)
 var defWinH = int32(600)
 
 // Black
-var defBGRed   = uint8(0)
+var defBGRed = uint8(0)
 var defBGGreen = uint8(0)
-var defBGBlue  = uint8(0)
+var defBGBlue = uint8(0)
 var defBGAlpha = uint8(0)
 
 var clickX = int32(0)
@@ -42,29 +42,29 @@ var zoom = 1.
 
 // XXX clumsy
 var isImgs = map[string]bool{
-	".jpg"  : true,
-	".JPG"  : true,
+	".jpg": true,
+	".JPG": true,
 
-	".jpeg" : true,
-	".JPEG" : true,
+	".jpeg": true,
+	".JPEG": true,
 
-	".png"  : true,
-	".PNG"  : true,
+	".png": true,
+	".PNG": true,
 
-	".webp" : true,
-	".WEBP" : true,
+	".webp": true,
+	".WEBP": true,
 
-	".avif" : true,
-	".AVIF" : true,
+	".avif": true,
+	".AVIF": true,
 
 	// XXX guess we should reload the image when we zoom to
 	// leverage "vectoriality"
-	".svg"  : true,
-	".SVG"  : true,
+	".svg": true,
+	".SVG": true,
 
 	// XXX
-	".gif"  : true,
-	".GIF"  : true,
+	".gif": true,
+	".GIF": true,
 }
 
 func help(n int) {
@@ -194,7 +194,7 @@ func loadImg() {
 		fails(err)
 	}
 
-	window.SetTitle(argv0+" - "+paths[npaths])
+	window.SetTitle(argv0 + " - " + paths[npaths])
 }
 
 func loadAndDrawImg() { loadImg(); drawImg() }
@@ -210,14 +210,14 @@ func nextImg() {
 func prevImg() {
 	npaths--
 	if npaths == -1 {
-		npaths = len(paths)-1
+		npaths = len(paths) - 1
 	}
 	loadAndDrawImg()
 }
 
 func drawBG(surface *sdl.Surface, ww, wh int32) {
-	all := sdl.Rect{X : 0, Y : 0, W : ww, H : wh}
-	bg  := sdl.MapRGBA(surface.Format, defBGRed, defBGGreen, defBGBlue, defBGAlpha)
+	all := sdl.Rect{X: 0, Y: 0, W: ww, H: wh}
+	bg := sdl.MapRGBA(surface.Format, defBGRed, defBGGreen, defBGBlue, defBGAlpha)
 	surface.FillRect(&all, bg)
 }
 
@@ -268,55 +268,58 @@ func drawImg() {
 		fails(err)
 	}
 
-	ww := surface.W; wh := surface.H
-	iw := image.W;   ih := image.H
+	ww := surface.W
+	wh := surface.H
+	iw := image.W
+	ih := image.H
 
-	x := int32(0);   y  := int32(0)
-	w := int32(0);   h  := int32(0)
+	x := int32(0)
+	y := int32(0)
+	w := int32(0)
+	h := int32(0)
 
 	if iw >= ih {
 		s := 1.
 
 		if ww >= iw {
 			// margins
-			x = (ww-iw)/2
+			x = (ww - iw) / 2
 			w = iw // - (ww-iw)/2
 		} else {
 			// no margins, but scaling factor for the other side
 			x = 0
 			w = ww
-			s = float64(ww)/float64(iw)
+			s = float64(ww) / float64(iw)
 		}
 
 		// adjust the other side
-		h = int32(float64(ih)*s)
-		y = (wh-h)/2
+		h = int32(float64(ih) * s)
+		y = (wh - h) / 2
 	} else {
 		s := 1.
 
 		if wh >= ih {
 			// margins
-			y = (wh-ih)/2
+			y = (wh - ih) / 2
 			h = ih // - (wh-ih)/2
 		} else {
 			// no margins, but scaling factor for the other side
 			y = 0
 			h = wh
-			s = float64(wh)/float64(ih)
+			s = float64(wh) / float64(ih)
 		}
 
 		// adjust the other side
-		w = int32(float64(iw)*s)
-		x  = (ww-w)/2
+		w = int32(float64(iw) * s)
+		x = (ww - w) / 2
 	}
 
-	zw := int32(zoom*float64(w))
-	zh := int32(zoom*float64(h))
+	zw := int32(zoom * float64(w))
+	zh := int32(zoom * float64(h))
 
 	// NOTE: we can "fortunately" plot to negative x/y
-	x = (ww-zw)/2
-	y = (wh-zh)/2
-
+	x = (ww - zw) / 2
+	y = (wh - zh) / 2
 
 	// Shift to take into account moving around
 	x += clickX
@@ -330,8 +333,8 @@ func drawImg() {
 }
 
 func mainLoop() {
-	running  := true
-	ctrl     := false
+	running := true
+	ctrl := false
 	clicking := false
 
 	for event := sdl.WaitEvent(); event != nil && running; event = sdl.WaitEvent() {
@@ -341,25 +344,35 @@ func mainLoop() {
 			break
 		case *sdl.WindowEvent:
 			switch t.Event {
-			case sdl.WINDOWEVENT_MOVED:        fallthrough
-			case sdl.WINDOWEVENT_SIZE_CHANGED: fallthrough
-			case sdl.WINDOWEVENT_RESIZED:      drawImg()
+			case sdl.WINDOWEVENT_MOVED:
+				fallthrough
+			case sdl.WINDOWEVENT_SIZE_CHANGED:
+				fallthrough
+			case sdl.WINDOWEVENT_RESIZED:
+				drawImg()
 			}
 		case *sdl.KeyboardEvent:
 			keyCode := t.Keysym.Sym
-//			println("keyboard:", string(keyCode), ctrl, t.State == sdl.PRESSED)
+			//			println("keyboard:", string(keyCode), ctrl, t.State == sdl.PRESSED)
 			ctrl = false
 			switch t.Keysym.Mod {
-				case sdl.KMOD_LCTRL: fallthrough
-				case sdl.KMOD_RCTRL: ctrl = t.State == sdl.PRESSED
+			case sdl.KMOD_LCTRL:
+				fallthrough
+			case sdl.KMOD_RCTRL:
+				ctrl = t.State == sdl.PRESSED
 			}
 
 			switch string(keyCode) {
-			case "n": fallthrough
+			case "n":
+				fallthrough
 			case " ":
-				if t.State == sdl.RELEASED { nextImg() }
+				if t.State == sdl.RELEASED {
+					nextImg()
+				}
 			case "p":
-				if t.State == sdl.RELEASED { prevImg() }
+				if t.State == sdl.RELEASED {
+					prevImg()
+				}
 			case "q":
 				running = !ctrl
 
@@ -371,7 +384,6 @@ func mainLoop() {
 				clickY = 0
 				drawImg()
 			}
-
 
 		case *sdl.MouseButtonEvent:
 			if t.Type == sdl.MOUSEBUTTONDOWN {
