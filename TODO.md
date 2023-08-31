@@ -1,6 +1,9 @@
 # Moving lag @bug-move-lagging
 Drawing too much.
 
+# Test gfx zooming
+See <https://github.com/veandco/go-sdl2/blob/master/gfx/sdl_gfx.go>, e.g. gfx.ZoomSurface()
+
 # Renaming/tagging @renaming @tagging
 Use conventions from <https://tales.mbivert.com/on-tagging-files-simply/> for
 tagging. See also @exec and @configuration.

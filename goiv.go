@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/veandco/go-sdl2/img"
+	"github.com/veandco/go-sdl2/gfx"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -375,6 +376,12 @@ func mainLoop() {
 				}
 			case "q":
 				running = !ctrl
+
+			case "r":
+				if t.State == sdl.RELEASED {
+					image = gfx.RotateSurface90Degrees(image, 1)
+					drawImg()
+				}
 
 			// meh; we could keyCode == sdl.K_ENTER (~)
 			// (NOTE: github doesn't display the rune)
