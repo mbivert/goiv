@@ -55,8 +55,11 @@ var isImgs = map[string]bool{
 	".webp": true,
 	".WEBP": true,
 
-	".avif": true,
-	".AVIF": true,
+	// Those fails to open, but there seems to at least
+	// be some bits around .avif support, e.g.
+	//	https://wiki.libsdl.org/SDL2_image/IMG_isAVIF
+//	".avif": true,
+//	".AVIF": true,
 
 	// XXX guess we should reload the image when we zoom to
 	// leverage "vectoriality"
