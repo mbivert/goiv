@@ -195,7 +195,7 @@ func loadImg() {
 	// TODO: resiliency
 	var err error
 	if image, err = img.Load(paths[npaths]); err != nil {
-		fails(err)
+		fails(fmt.Errorf("%s: %s", paths[npaths], err))
 	}
 
 	window.SetTitle(argv0 + " - " + paths[npaths])
@@ -357,7 +357,7 @@ func mainLoop() {
 			}
 		case *sdl.KeyboardEvent:
 			keyCode := t.Keysym.Sym
-			//			println("keyboard:", string(keyCode), ctrl, t.State == sdl.PRESSED)
+			// println("keyboard:", string(keyCode), ctrl, t.State == sdl.PRESSED)
 			ctrl = false
 			switch t.Keysym.Mod {
 			case sdl.KMOD_LCTRL:
