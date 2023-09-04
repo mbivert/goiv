@@ -1,6 +1,10 @@
 # Moving lag @bug-move-lagging
 Drawing too much.
 
+# Searching
+Something like '/' and a text input for a regexp. Upon application, temporarily
+which selects a sublists of files matching the regexp.
+
 # Test gfx zooming
 See <https://github.com/veandco/go-sdl2/blob/master/gfx/sdl_gfx.go>, e.g. gfx.ZoomSurface()
 
