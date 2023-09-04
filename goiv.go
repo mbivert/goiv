@@ -377,6 +377,10 @@ func mainLoop() {
 				if t.State == sdl.RELEASED {
 					prevImg()
 				}
+			case "c":
+				if ctrl {
+					sdl.SetClipboardText(paths[npaths])
+				}
 			case "q":
 				running = !ctrl
 
